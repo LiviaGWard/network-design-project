@@ -1,0 +1,47 @@
+# Project One: Network Reconfiguration
+**CYB-210 | Computer Networking | Grade: A**
+
+## Objective
+Reconfigure an existing network in Cisco Packet Tracer to implement proper segmentation, a guest wireless network, isolated device groups, and a separate camera network — all following security best practices.
+
+---
+
+## A. VLAN Configuration
+Configured VLANs to logically separate network traffic by function. VLANs allow devices on the same physical switch to be isolated from each other — a core security control that limits lateral movement in the event of a compromise.
+
+**Why VLANs matter for security:** Without segmentation, a compromised device has direct access to every other device on the network. VLANs enforce boundaries at the network layer.
+
+---
+
+## B. Guest Wireless Network
+Set up an isolated guest wireless network (FREE_WIRELESS) separate from the main LAN. Guest devices receive IPs from a dedicated DHCP scope and cannot access internal resources.
+
+**Security consideration:** Guest networks must be fully isolated — shared credentials or bridged access to the internal network defeats the purpose entirely.
+
+---
+
+## C. Device Reconfiguration
+Reorganized device placement across the network to ensure each device type (workstations, printers, IoT) exists in its appropriate segment with only the access it needs.
+
+**Principle applied:** Least Privilege at the network level — devices only have connectivity to the resources required for their function.
+
+---
+
+## D. Camera Network Segmentation
+Added a separate network segment dedicated to security cameras. Camera traffic is isolated from employee workstations and administrative systems.
+
+**Why this matters:** IoT and camera devices are frequent attack targets due to weak default credentials and infrequent patching. Isolating them limits the damage if one is compromised.
+
+---
+
+## E. Network Segregation — Explanation
+Proper network segregation creates security boundaries that:
+- Limit the blast radius of any single compromised device
+- Prevent unauthorized lateral movement between segments
+- Allow granular monitoring and access control per segment
+- Meet compliance requirements for sensitive data environments (e.g., separating payment systems, health records, or classified data)
+
+---
+
+## Skills Demonstrated
+`VLAN Configuration` `Network Segmentation` `Guest Wireless Networking` `IoT Isolation` `Least Privilege (Network)` `Cisco Packet Tracer` `Security-Driven Network Design`

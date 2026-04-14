@@ -1,0 +1,76 @@
+# Module Five: RIP Routing & NAT Configuration
+**CYB-210 | Computer Networking**
+
+## Objective
+Configure a router via CLI to implement RIP (Routing Information Protocol) dynamic routing and NAT on a restructured network, then verify full connectivity with ping tests.
+
+---
+
+## Part I — IP Configuration & Connectivity Verification
+Accessed three admin PCs (PC1_Admin, PC2_Admin, PC3_Admin) and updated IP addresses and default gateways using the IP Configuration application. Configured the Admin_Printer default gateway via the Config tab.
+
+**Connectivity test:** Initiated a ping from PC1_Admin to Server_Main (192.168.20.100).
+- First request: timed out (expected — ARP resolution)
+- Subsequent three replies: ✅ successful
+
+Applied same process to the Student network segment and confirmed connectivity.
+
+---
+
+## Part II — RIP Dynamic Routing Configuration
+
+### Steps completed via Router CLI:
+```
+Router> enable
+Router# configure terminal
+
+! Remove outdated RIP entries
+Router(config)# router rip
+Router(config-router)# no network 192.168.6.0
+Router(config-router)# no network 192.168.9.0
+
+! Assign new IPs to interfaces
+Router(config)# interface FastEthernet0/0
+Router(config-if)# ip address 192.168.12.1 255.255.255.0
+
+Router(config)# interface FastEthernet1/0
+Router(config-if)# ip address 192.168.20.1 255.255.255.0
+
+! Add new networks to RIP
+Router(config)# router rip
+Router(config-router)# network 192.168.12.0
+Router(config-router)# network 192.168.20.0
+Router(config-router)# exit
+```
+
+**Troubleshooting note:** Encountered an error with interface naming. Used `show ip interface brief` to identify the correct interface names — a key diagnostic command for any network engineer.
+
+---
+
+## Part III — NAT Configuration
+
+```
+! Assign inside/outside interfaces
+Router(config)# interface FastEthernet0/0
+Router(config-if)# ip nat inside
+
+Router(config)# interface FastEthernet1/0
+Router(config-if)# ip nat outside
+
+! Static NAT rule
+Router(config)# ip nat inside source static 192.168.12.1 [outside-ip]
+```
+
+**Result:** Internal IP (192.168.12.1) successfully mapped to external address. Devices on the internal network can communicate externally while their true IPs remain hidden.
+
+---
+
+## Key Troubleshooting Steps Used
+- `show ip interface brief` — verified interface names and status
+- `show ip route` — confirmed routing table entries
+- Ping testing — validated end-to-end connectivity after each configuration change
+
+---
+
+## Skills Demonstrated
+`Router CLI` `RIP Dynamic Routing` `NAT Configuration` `PAT` `Interface Assignment` `Network Troubleshooting` `show ip interface brief` `Cisco IOS`
